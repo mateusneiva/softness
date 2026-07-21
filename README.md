@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Softness
 
-## Getting Started
+Storefront and admin dashboard for **Softness**, a full-stack e-commerce experience built with Next.js and a dedicated Fastify API.
 
-First, run the development server:
+Portfolio project showcasing product discovery, authenticated checkout, account management, and a practical admin panel.
+
+## Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **UI:** React 19, Tailwind CSS 4
+- **State / forms:** Zustand, React Hook Form, Zod
+- **HTTP:** Axios
+- **Language:** TypeScript
+
+## Features
+
+- Product catalog, collections, search, and reviews
+- Cart and checkout with flat-rate / free shipping
+- Account area: profile, addresses, orders, Stripe payment methods
+- Auth flows: register/login, optional email verification, Google OAuth (API-driven)
+- Admin (`/admin`): products, collections, banners, coupons, orders, store settings
+- Bot protection via Cloudflare Turnstile when the API provides keys
+
+## Requirements
+
+- pnpm 10+
+- Node.js 20+
+- Running [Softness API](../softness-api) (default `http://localhost:5555`)
+
+## Quick start
+
+### 1. Start the API
+
+Follow the setup in [`softness-api/README.md`](../softness-api/README.md) (`db:setup`, then `pnpm dev`).
+
+### 2. Start the storefront
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_API_URL` | Public API URL used by the browser (baked in at **build** time) |
 
-## Learn More
+Local default (`.env.example`): `http://localhost:5555`
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Development server |
+| `pnpm build` | Production build |
+| `pnpm start` | Serve the production build |
+| `pnpm lint` | ESLint |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Demo accounts
 
-## Deploy on Vercel
+After seeding the API:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | `admin@softness.com` | `admin123456` |
+| Customer | `customer@softness.com` | `admin123456` |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Admin panel: [http://localhost:3000/admin](http://localhost:3000/admin)
+
+## Deploy
+
+1. Deploy the **API** first (see `softness-api`).
+2. Set `NEXT_PUBLIC_API_URL` to the public HTTPS API URL **before** building.
+3. Deploy this app (e.g. Vercel, or Node with `pnpm build && pnpm start`).
+4. Point the API `FRONTEND_URL` at this site’s HTTPS origin.
+
+Example:
+
+```bash
+NEXT_PUBLIC_API_URL=https://api.yourdomain.com
+```
+
+## Project layout
+
+```
+src/
+  app/           # store, account, admin, auth, checkout routes
+  components/    # UI and feature components
+  services/      # API client
+  store/         # client state
+  types/
+  utils/
+```
+
+## Related
+
+Backend: [`softness-api`](../softness-api).
