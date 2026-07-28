@@ -71,11 +71,24 @@ After seeding the API:
 
 Admin panel: [http://localhost:3000/admin](http://localhost:3000/admin)
 
+## Docker
+
+Copy env defaults, then start (API must be reachable at `NEXT_PUBLIC_API_URL`):
+
+```bash
+cp .env.example .env
+docker compose up --build
+```
+
+- Storefront → [http://localhost:3000](http://localhost:3000) (or whatever `PORT` is in `.env`)
+- `NEXT_PUBLIC_API_URL` is a **build arg** — change it in `.env` before `docker compose build`
+- `PORT` controls both the container listen port and the published host port
+
 ## Deploy
 
 1. Deploy the **API** first (see `softness-api`).
-2. Set `NEXT_PUBLIC_API_URL` to the public HTTPS API URL **before** building.
-3. Deploy this app (e.g. Vercel, or Node with `pnpm build && pnpm start`).
+2. Set `NEXT_PUBLIC_API_URL` to the public HTTPS API URL **before** building (Docker build arg or env).
+3. Deploy this app (Docker, Vercel, or Node with `pnpm build && pnpm start`).
 4. Point the API `FRONTEND_URL` at this site’s HTTPS origin.
 
 Example:

@@ -2,7 +2,24 @@ import type { NextConfig } from 'next';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5555';
 
+function apiUploadRemotePattern(apiUrl: string) {
+  try {
+    const url = new URL(apiUrl);
+    return {
+      protocol: url.protocol.replace(':', '') as 'http' | 'https',
+      hostname: url.hostname,
+      ...(url.port ? { port: url.port } : {}),
+      pathname: '/uploads/**' as const,
+    };
+  } catch {
+    return null;
+  }
+}
+
+const apiUploadPattern = apiUploadRemotePattern(API_URL);
+
 const nextConfig: NextConfig = {
+  output: 'standalone',
   turbopack: {
     rules: {
       '*.svg': {
@@ -60,6 +77,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
+      ...(apiUploadPattern ? [apiUploadPattern] : []),
       {
         protocol: 'http',
         hostname: 'localhost',
