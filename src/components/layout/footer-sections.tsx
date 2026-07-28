@@ -7,17 +7,17 @@ import TikTokIcon from '@/src/assets/icons/tiktok.svg';
 const SOCIAL_LINKS = [
   {
     label: 'Instagram',
-    href: 'https://instagram.com/softness',
+    href: '#',
     icon: InstagramIcon,
   },
   {
     label: 'X',
-    href: 'https://x.com/softness',
+    href: '#',
     icon: XIcon,
   },
   {
     label: 'TikTok',
-    href: 'https://tiktok.com/@softness',
+    href: '#',
     icon: TikTokIcon,
   },
 ] as const;
@@ -31,8 +31,6 @@ export function FooterSocial() {
           <a
             key={label}
             href={href}
-            target="_blank"
-            rel="noopener noreferrer"
             className="text-neutral-400 transition-colors duration-200 group-hover/footer-social:text-neutral-600 hover:!text-white flex items-center gap-2"
           >
             <Icon className="size-[15px]" aria-hidden /> {label}
