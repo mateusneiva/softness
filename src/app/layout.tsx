@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import { Navbar } from '@/src/components/layout/navbar';
 import { AuthProvider } from '@/src/components/shared/auth-provider';
-import { PortfolioBanner } from '@/src/components/layout/portfolio-banner';
+import { SiteHeader } from '@/src/components/layout/site-header';
 import { ToastProvider } from '@/src/components/shared/toast-provider';
 import { ServerStatusGate } from '@/src/components/shared/server-status-gate';
 import { StoreIntro } from '@/src/components/layout/store-intro';
@@ -85,10 +84,7 @@ export default function RootLayout({
         <AuthProvider>
           <ToastProvider>
             <StoreIntro />
-            <div className="sticky top-0 z-50">
-              <PortfolioBanner />
-              <Navbar />
-            </div>
+            <SiteHeader />
             <main className="flex-1 flex flex-col">{children}</main>
             <CollectionExpandOverlay />
             <ServerStatusGate />

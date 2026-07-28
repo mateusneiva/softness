@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type RefObject } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type DismissBackdropProps = {
   onDismiss: () => void;
@@ -13,7 +14,7 @@ function DismissBackdrop({ onDismiss, className = 'z-30' }: DismissBackdropProps
       type="button"
       aria-hidden
       tabIndex={-1}
-      className={`fixed inset-0 cursor-default bg-transparent ${className}`}
+      className={twMerge('fixed inset-0 cursor-default bg-transparent', className)}
       onClick={onDismiss}
     />
   );
