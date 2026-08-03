@@ -67,10 +67,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  icons: {
-    icon: [{ url: '/logo/3_ICONE_PRETO.png', type: 'image/png' }],
-    apple: [{ url: '/logo/3_ICONE_PRETO.png' }],
-  },
 };
 
 export default function RootLayout({
